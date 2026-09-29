@@ -1,0 +1,14 @@
+{
+  "name": "coldchain-handover",
+  "version": "1.0.0",
+  "private": true,
+  "description": "疾控冷链离线交接台 - 调度端/随车端离线合并系统",
+  "scripts": {
+    "start": "node server/src/index.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.21.0"
+  }
+}

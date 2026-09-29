@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冷链离线交接台</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">❄</span>
+    <h1>冷链离线交接台</h1>
+    <span class="subtitle">疾控样本转运 · 断网可作业 · 恢复自动合并</span>
+  </div>
+  <div class="top-actions">
+    <span id="netBadge" class="net-badge online">在线</span>
+    <button id="syncBtn" class="btn primary">立即同步</button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="dispatch">调度端</button>
+  <button class="tab" data-tab="vehicle">随车端</button>
+  <button class="tab" data-tab="anomalies">异常核处 <span id="anomalyBadge" class="badge">0</span></button>
+</nav>
+
+<main id="main">
+  <!-- 调度端 -->
+  <section id="tab-dispatch" class="tab-panel active">
+    <div id="offlineBanner" class="banner hidden">当前离线：正在使用本地缓存数据，恢复联网后自动同步。</div>
+    <div class="toolbar">
+      <button id="seedBtn" class="btn">载入演示数据</button>
+      <button id="refreshBtn" class="btn">刷新状态</button>
+    </div>
+    <div id="dispatchContent"><p class="muted">加载中…</p></div>
+  </section>
+
+  <!-- 随车端 -->
+  <section id="tab-vehicle" class="tab-panel">
+    <div class="card">
+      <h2>随车作业</h2>
+      <div class="form-row">
+        <label>设备序号</label>
+        <input id="deviceSerial" placeholder="如 DEV-001" />
+      </div>
+      <p class="muted">断网时登记的事件保存在本机，网络恢复后点「立即同步」合并；箱号/数量/版本冲突会保留两版并生成待核异常，不会覆盖已收样记录。</p>
+    </div>
+
+    <div class="card">
+      <h2>登记事件</h2>
+      <div class="form-row">
+        <label>转运单号</label>
+        <input id="evOrder" placeholder="如 ZY-2026-001" list="orderList" />
+        <datalist id="orderList"></datalist>
+      </div>
+      <div class="form-row">
+        <label>箱号</label>
+        <input id="evBox" placeholder="如 BOX-001" />
+      </div>
+      <div class="form-row">
+        <label>类型</label>
+        <select id="evType">
+          <option value="pack">装箱</option>
+          <option value="ice">补冰</option>
+          <option value="unbox">开箱交接</option>
+          <option value="temp">温控异常</option>
+        </select>
+      </div>
+      <div id="evFields"></div>
+      <button id="evSubmit" class="btn primary">登记（离线可存）</button>
+    </div>
+
+    <div class="card">
+      <h2>本机电箱记录 <span id="outboxCount" class="badge">0</span></h2>
+      <div id="outboxList"><p class="muted">暂无记录</p></div>
+    </div>
+  </section>
+
+  <!-- 异常核处 -->
+  <section id="tab-anomalies" class="tab-panel">
+    <div id="anomalyContent"><p class="muted">加载中…</p></div>
+  </section>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/idb.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/dispatch.js"></script>
+<script src="js/vehicle.js"></script>
+<script src="js/anomalies.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
